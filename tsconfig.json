@@ -1,13 +1,27 @@
 {
     "compilerOptions": {
+        "removeComments": true,
+        "sourceMap": true,
+        "declaration": true,
         "strict": true,
         "module": "CommonJS",
         "target": "es6",
+        "noImplicitAny": true,
         "allowSyntheticDefaultImports": true,
         "skipLibCheck": true,
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
         "resolveJsonModule": true,
+        "baseUrl": "./src",
+        "paths": {
+            "@/*": [
+                "*"
+            ],
+            "@interfaces/*": [
+                "interfaces/*"
+            ]
+        },
+        "outDir": "dist"
     },
     "include": [
         "src"
