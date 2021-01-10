@@ -49,7 +49,7 @@ console.log('Secret key used', secret);
 
 ## Use in Javascript
 ```js
-const DataStore = require('data-store');
+const DataStore = require('data-store').default;
 
 const schema = {
   url: '',
