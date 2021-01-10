@@ -1,17 +1,17 @@
-# data-store
+# crypto-data-store
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/leydev/data-store.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/leydev/data-store/alerts/)
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/leydev/data-store.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/leydev/data-store/context:javascript)
 
 ## Description
 
-DataStore is an module to write Objects Javascript in a file with encryption or not.
+CryptoDataStore is an module to write Objects Javascript in a file with encryption or not.
 
 * Full typescript support
 
 ## Use in typescript
 ```ts
-import DataStore from 'data-store';
-import type { IDataStore, Schema } from 'data-store';
+import DataStore from 'crypto-data-store';
+import type { IDataStore, Schema } from 'crypto-data-store';
 
 interface SchemaTable {
   url?: string;
@@ -49,7 +49,7 @@ console.log('Secret key used', secret);
 
 ## Use in Javascript
 ```js
-const DataStore = require('data-store').default;
+const DataStore = require('crypto-data-store').default;
 
 const schema = {
   url: '',
