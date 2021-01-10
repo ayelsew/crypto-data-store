@@ -14,11 +14,17 @@
         "resolveJsonModule": true,
         "baseUrl": "./src",
         "paths": {
-            "@/*": [
+            "@root/*": [
                 "*"
+            ],
+            "@root": [
+                "."
             ],
             "@interfaces/*": [
                 "interfaces/*"
+            ],
+            "@interfaces": [
+                "interfaces"
             ]
         },
         "outDir": "dist"

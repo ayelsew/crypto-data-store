@@ -1,5 +1,5 @@
-class DataStoreException extends Error {
-  constructor(message: any) {
+export class DataStoreException extends Error {
+  constructor(message: string) {
     super(message);
     this.name = 'DataStoreException';
   }
