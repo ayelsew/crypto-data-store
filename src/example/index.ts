@@ -1,5 +1,5 @@
-import DataStore from '@/index';
-import type { IDataStore, Schema } from '@interfaces/DataStore';
+import DataStore from '@root';
+import type { IDataStore, Schema } from '@root/interfaces';
 
 interface SchemaTable {
   url?: string;
@@ -25,7 +25,11 @@ const fileName = dataStore.getFileName();
 
 const token = dataStore.read<string>('token');
 
+const secret = dataStore.getSecret();
+
 // eslint-disable-next-line no-console
 console.log('Nome do arquivo', fileName);
 // eslint-disable-next-line no-console
 console.log('token de acesso', token);
+// eslint-disable-next-line no-console
+console.log('Secret key used', secret);
