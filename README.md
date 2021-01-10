@@ -4,14 +4,14 @@
 
 ## Description
 
-DataStore is an module to write Objects Javascript in a file with encryptation or not.
+DataStore is an module to write Objects Javascript in a file with encryption or not.
 
 * Full typescript support
 
 ## Use in typescript
 ```ts
 import DataStore from 'data-store';
-import type { IDataStore, Schema } from 'data-store/interfaces';
+import type { IDataStore, Schema } from 'data-store';
 
 interface SchemaTable {
   url?: string;
