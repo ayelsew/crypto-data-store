@@ -4,7 +4,7 @@
 
 ## Description
 
-CryptoDataStore is an module to write Objects Javascript in a file with encryption or not.
+Crypto Data Store is an module to write Objects Javascript in a file with encryption or not.
 
 * Full typescript support
 
