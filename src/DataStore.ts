@@ -37,14 +37,14 @@ export class DataStore implements IDataStore<any> {
     this.writeFile = fs.writeFileSync;
     this.readFile = fs.readFileSync;
     this.algorithm = params.algorithm || 'aes-256-cbc';
-    this.encrypt = params.encrypt || true;
+    this.encrypt = params.encrypt ?? true;
     if (this.encrypt === true) {
-      this.cryptography = new Cryptography(this.algorithm);
+      this.cryptography = new Cryptography(this.algorithm, params.secret);
     }
   }
 
   /**
-   * @description Method to encrypt a data
+   * Method to encrypt a data
    * @param data The data to encrypt
    * @returns Buffer
    * @requires Encryption must be active
@@ -60,7 +60,7 @@ export class DataStore implements IDataStore<any> {
   }
 
   /**
-   * @description Method to decrypt data
+   * Method to decrypt data
    * @param data The data to decrypt
    * @returns Buffer
    * @requires Encryption must be active
@@ -76,7 +76,7 @@ export class DataStore implements IDataStore<any> {
   }
 
   /**
-   * @description Write data in file (with encryption if active)
+   * Write data in file (with encryption if active)
    * @param payload The data to write (must be a object declared at schema)
    * @returns void
    * @throws DataStoreException
@@ -94,7 +94,7 @@ export class DataStore implements IDataStore<any> {
   }
 
   /**
-   * @description Read data in file (with encryption if active)
+   * Read data in file (with encryption if active)
    * @param key The key name declared at schema)
    * @returns depends of schema
    * @throws DataStoreException
@@ -118,7 +118,7 @@ export class DataStore implements IDataStore<any> {
   }
 
   /**
-   * @description Return the name of file
+   * Return the name of file
    * @returns string
    * @method
    */
@@ -127,7 +127,7 @@ export class DataStore implements IDataStore<any> {
   }
 
   /**
-   * @description Return the secret key used to encryption
+   * Return the secret key used to encryption
    * @returns string
    * @method
    */

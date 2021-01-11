@@ -11,6 +11,7 @@ const schema = {
 const dataStore = new _root_1.default({
     schema,
     fileName: 'db.tmp',
+    encrypt: false,
 });
 dataStore.write({
     url: 'https://leydev.com.br',

@@ -3,9 +3,10 @@ import type { Cipher, Decipher } from 'crypto';
 import type { ICryptography, DataRaw } from '@interfaces/Cryptography';
 
 /**
- * @class
- * @description  Class Cryptography to encrypt/decrypt data
+ * Class Cryptography to encrypt/decrypt data
+ *
  * @version 1.0
+ * @class
  */
 export class Cryptography implements ICryptography {
   protected cipher: Cipher;
@@ -31,7 +32,7 @@ export class Cryptography implements ICryptography {
   }
 
   /**
-   * @description Returns de key used to encrypt/decrypt data
+   * Returns de key used to encrypt/decrypt data
    * @returns string
    * @method
    */
@@ -42,7 +43,7 @@ export class Cryptography implements ICryptography {
   }
 
   /**
-   * @description Method to encrypt a data
+   * Method to encrypt a data
    * @param data The data to encrypt
    * @returns Buffer
    * @method
@@ -53,7 +54,7 @@ export class Cryptography implements ICryptography {
   }
 
   /**
-   * @description Method to decrypt data
+   * Method to decrypt data
    * @param data The data to decrypt
    * @returns Buffer
    * @method

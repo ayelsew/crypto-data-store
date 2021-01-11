@@ -11,23 +11,32 @@ export type ReadFile = typeof fs.readFileSync;
 
 export interface IDataStoreParameters<schemaType> {
   /**
-   * @description Object base to use as schema
+   * Object base to use as schema
    */
   schema: Schema<schemaType>;
   /**
-   * @description The name od file to save data
+   * The name od file to save data
    */
   fileName: string;
   /**
-   * @description The algorithm used on encryption
+   * The algorithm used on encryption
+   *
    * @default 'aes-256-cbc'
    */
   algorithm?: string;
   /**
-   * @description Active mechanism of encryption
+   * Active mechanism of encryption
+   *
    * @default true
    */
   encrypt?: boolean;
+  /**
+   * The string key to encrypt/decrypt
+   * If omited, a random key will be generate
+   *
+   * @default true
+   */
+  secret?: string;
 }
 
 /**
