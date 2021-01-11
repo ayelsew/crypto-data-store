@@ -9,27 +9,28 @@ const Exception_1 = __importDefault(require("./Exception"));
 const Cryptography_1 = __importDefault(require("./Cryptography"));
 class DataStore {
     constructor(params) {
+        var _a;
         this.schema = params.schema;
         this.fileName = params.fileName;
         this.writeFile = fs_1.default.writeFileSync;
         this.readFile = fs_1.default.readFileSync;
         this.algorithm = params.algorithm || 'aes-256-cbc';
-        this.encrypt = params.encrypt || true;
+        this.encrypt = (_a = params.encrypt) !== null && _a !== void 0 ? _a : true;
         if (this.encrypt === true) {
-            this.cryptography = new Cryptography_1.default(this.algorithm);
+            this.cryptography = new Cryptography_1.default(this.algorithm, params.secret);
         }
     }
     encryptData(data) {
         if (this.cryptography instanceof Cryptography_1.default) {
             return this.cryptography.encrypt(data);
         }
-        throw new Exception_1.default('Cannot encrypt data, because encryptation is not active!');
+        throw new Exception_1.default('Cannot encrypt data, because encryption is not active!');
     }
     decryptData(data) {
         if (this.cryptography instanceof Cryptography_1.default) {
             return this.cryptography.decrypt(data);
         }
-        throw new Exception_1.default('Cannot decrypt data, because encryptation is not active!');
+        throw new Exception_1.default('Cannot decrypt data, because encryption is not active!');
     }
     write(payload) {
         const data = JSON.stringify(payload);

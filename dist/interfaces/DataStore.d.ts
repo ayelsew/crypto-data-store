@@ -10,6 +10,7 @@ export interface IDataStoreParameters<schemaType> {
     fileName: string;
     algorithm?: string;
     encrypt?: boolean;
+    secret?: string;
 }
 export interface IDataStore<PayloadWrite> {
     encryptData(data: DataRaw): Buffer;

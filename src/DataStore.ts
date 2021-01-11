@@ -12,8 +12,8 @@ import type {
 } from '@interfaces';
 
 /**
- * @description Save data in file as key:value
  * @class
+ * @description  Class DataStore to save Object JS file as key:value
  * @version 1.0
  */
 export class DataStore implements IDataStore<any> {
@@ -37,28 +37,51 @@ export class DataStore implements IDataStore<any> {
     this.writeFile = fs.writeFileSync;
     this.readFile = fs.readFileSync;
     this.algorithm = params.algorithm || 'aes-256-cbc';
-    this.encrypt = params.encrypt || true;
+    this.encrypt = params.encrypt ?? true;
     if (this.encrypt === true) {
-      this.cryptography = new Cryptography(this.algorithm);
+      this.cryptography = new Cryptography(this.algorithm, params.secret);
     }
   }
 
+  /**
+   * Method to encrypt a data
+   * @param data The data to encrypt
+   * @returns Buffer
+   * @requires Encryption must be active
+   * @throws DataStoreException
+   * @method
+   */
   public encryptData(data: DataRaw): Buffer {
     if (this.cryptography instanceof Cryptography) {
       return this.cryptography.encrypt(data);
     }
 
-    throw new DataStoreException('Cannot encrypt data, because encryptation is not active!');
+    throw new DataStoreException('Cannot encrypt data, because encryption is not active!');
   }
 
+  /**
+   * Method to decrypt data
+   * @param data The data to decrypt
+   * @returns Buffer
+   * @requires Encryption must be active
+   * @throws DataStoreException
+   * @method
+   */
   public decryptData(data: DataRaw): Buffer {
     if (this.cryptography instanceof Cryptography) {
       return this.cryptography.decrypt(data);
     }
 
-    throw new DataStoreException('Cannot decrypt data, because encryptation is not active!');
+    throw new DataStoreException('Cannot decrypt data, because encryption is not active!');
   }
 
+  /**
+   * Write data in file (with encryption if active)
+   * @param payload The data to write (must be a object declared at schema)
+   * @returns void
+   * @throws DataStoreException
+   * @method
+   */
   public write(payload: Payload<any>): void {
     const data = JSON.stringify(payload);
     const cipher: Buffer | string = (this.encrypt === true) ? this.encryptData(data) : data;
@@ -70,6 +93,13 @@ export class DataStore implements IDataStore<any> {
     }
   }
 
+  /**
+   * Read data in file (with encryption if active)
+   * @param key The key name declared at schema)
+   * @returns depends of schema
+   * @throws DataStoreException
+   * @method
+   */
   public read(key: string): any {
     const { schema } = this;
     type DataType = typeof schema;
@@ -87,10 +117,20 @@ export class DataStore implements IDataStore<any> {
     return data[key as keyof DataType];
   }
 
+  /**
+   * Return the name of file
+   * @returns string
+   * @method
+   */
   public getFileName(): string {
     return this.fileName;
   }
 
+  /**
+   * Return the secret key used to encryption
+   * @returns string
+   * @method
+   */
   public getSecret(): string {
     if (this.cryptography instanceof Cryptography) {
       return this.cryptography.getSecret();

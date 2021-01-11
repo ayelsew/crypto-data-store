@@ -14,6 +14,7 @@ const schema: Schema<SchemaTable> = {
 const dataStore: IDataStore<SchemaTable> = new DataStore({
   schema,
   fileName: 'db.tmp',
+  algorithm: ''
 });
 
 dataStore.write({

@@ -10,10 +10,33 @@ export type WriteFile = typeof fs.writeFileSync;
 export type ReadFile = typeof fs.readFileSync;
 
 export interface IDataStoreParameters<schemaType> {
+  /**
+   * Object base to use as schema
+   */
   schema: Schema<schemaType>;
+  /**
+   * The name od file to save data
+   */
   fileName: string;
+  /**
+   * The algorithm used on encryption
+   *
+   * @default 'aes-256-cbc'
+   */
   algorithm?: string;
+  /**
+   * Active mechanism of encryption
+   *
+   * @default true
+   */
   encrypt?: boolean;
+  /**
+   * The string key to encrypt/decrypt
+   * If omited, a random key will be generate
+   *
+   * @default true
+   */
+  secret?: string;
 }
 
 /**

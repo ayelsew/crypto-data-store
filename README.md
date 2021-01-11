@@ -4,7 +4,7 @@
 
 ## Description
 
-Crypto Data Store is an module to write Objects Javascript in a file with encryption or not.
+Crypto Data Store is a module to write Objects Javascript in a file with encryption or not.
 
 * Full typescript support
 
@@ -78,4 +78,84 @@ console.log('Nome do arquivo', fileName);
 console.log('token de acesso', token);
 // eslint-disable-next-line no-console
 console.log('Secret key used', secret);
+```
+
+## Recovery data from encrypted file
+
+```ts
+import DataStore from 'crypto-data-store';
+import type { IDataStore, Schema } from 'crypto-data-store';
+
+interface SchemaTable {
+  url?: string;
+  token?: string;
+}
+
+const schema: Schema<SchemaTable> = {
+  url: '',
+  token: '',
+};
+
+const dataStore: IDataStore<SchemaTable> = new DataStore({
+  schema,
+  fileName: 'db.tmp',
+  // The key used to encrypt file must be the same to decrypt
+  secret: '83e27d81030af3027405403c1c557aad64854bd52fc65c7dc3368d5649d47564.b1c929d8560bea536b67de44f18fa34b',
+});
+
+const data = dataStore.read<string>('token');
+
+// eslint-disable-next-line no-console
+console.log('URL:', data); // output: 'https://leydev.com.br'
+
+```
+
+## Disable encryption
+```ts
+const dataStore: IDataStore<SchemaTable> = new DataStore({
+  schema,
+  fileName: 'db.tmp',
+  // To disable encryption on write file
+  encrypt: false,
+});
+```
+
+## Change algorithm of encryption
+```ts
+const dataStore: IDataStore<SchemaTable> = new DataStore({
+  schema,
+  fileName: 'db.tmp',
+  // Change algorithm
+  algorithm: 'aes-256-cbc' // 'aes-256-cbc' is default
+});
+```
+
+## Handle errors
+
+```ts
+import DataStore from 'crypto-data-store';
+import type { IDataStore, Schema } from 'crypto-data-store';
+
+interface SchemaTable {
+  url?: string;
+  token?: string;
+}
+
+const schema: Schema<SchemaTable> = {
+  url: '',
+  token: '',
+};
+
+const dataStore: IDataStore<SchemaTable> = new DataStore({
+  schema,
+  fileName: 'db.tmp',
+  // The key used to encrypt file must be the same to decrypt
+  secret: '83e27d81030af3027405403c1c557aad64854bd52fc65c7dc3368d5649d47564.b1c929d8560bea536b67de44f18fa34b',
+});
+
+try {
+  const data = dataStore.read<string>('token');
+} catch(error) {
+  console.error(error) // Instance of DataStoreException
+}
 ```
