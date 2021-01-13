@@ -16,9 +16,22 @@ class DataStore {
         this.readFile = fs_1.default.readFileSync;
         this.algorithm = params.algorithm || 'aes-256-cbc';
         this.encrypt = (_a = params.encrypt) !== null && _a !== void 0 ? _a : true;
+        this.overwrite = params.overwrite || false;
         if (this.encrypt === true) {
             this.cryptography = new Cryptography_1.default(this.algorithm, params.secret);
         }
+    }
+    readFromFile() {
+        const { schema } = this;
+        let dataRaw;
+        try {
+            dataRaw = this.readFile(this.fileName);
+        }
+        catch (error) {
+            throw new Exception_1.default(error);
+        }
+        const cipher = (this.encrypt === true) ? this.decryptData(dataRaw) : dataRaw;
+        return JSON.parse(cipher.toString());
     }
     encryptData(data) {
         if (this.cryptography instanceof Cryptography_1.default) {
@@ -33,7 +46,14 @@ class DataStore {
         throw new Exception_1.default('Cannot decrypt data, because encryption is not active!');
     }
     write(payload) {
-        const data = JSON.stringify(payload);
+        let data;
+        if (this.overwrite === false) {
+            const merge = Object.assign(Object.assign({}, payload), this.readFromFile());
+            data = JSON.stringify(merge);
+        }
+        else {
+            data = JSON.stringify(payload);
+        }
         const cipher = (this.encrypt === true) ? this.encryptData(data) : data;
         try {
             this.writeFile(this.fileName, cipher);
@@ -44,15 +64,7 @@ class DataStore {
     }
     read(key) {
         const { schema } = this;
-        let dataRaw;
-        try {
-            dataRaw = this.readFile(this.fileName);
-        }
-        catch (error) {
-            throw new Exception_1.default(error);
-        }
-        const cipher = (this.encrypt === true) ? this.decryptData(dataRaw) : dataRaw;
-        const data = JSON.parse(cipher.toString());
+        const data = this.readFromFile();
         return data[key];
     }
     getFileName() {

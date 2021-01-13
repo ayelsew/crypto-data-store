@@ -8,6 +8,13 @@ Crypto Data Store is a module to write Objects Javascript in a file with encrypt
 
 * Full typescript support
 
+## NOTE
+**At the moment this is a experimental module**
+
+## Reports and Pull Requests
+[Open PR here](https://github.com/leydev/crypto-data-store/pulls)  
+[Open issues here](https://github.com/leydev/crypto-data-store/issues)
+
 ## Use in typescript
 ```ts
 import DataStore from 'crypto-data-store';
@@ -103,7 +110,7 @@ const dataStore: IDataStore<SchemaTable> = new DataStore({
   secret: '83e27d81030af3027405403c1c557aad64854bd52fc65c7dc3368d5649d47564.b1c929d8560bea536b67de44f18fa34b',
 });
 
-const data = dataStore.read<string>('token');
+const data = dataStore.read<string>('url');
 
 // eslint-disable-next-line no-console
 console.log('URL:', data); // output: 'https://leydev.com.br'
@@ -159,3 +166,10 @@ try {
   console.error(error) // Instance of DataStoreException
 }
 ```
+
+## Change log NPM
+
+ - 1.0.6 Overwrite optional  
+    Now, if you have a file with data, on write it, the data object will be merged. Except if you went to overwrite data, so you should set `overwrite: true` when instancing class DataStore. 
+ - 1.0.5 Support to add secret on instance DataStore class  
+    Now it's possible to inject a secret key to open files already encrypted before 

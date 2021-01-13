@@ -9,7 +9,9 @@ export declare class DataStore implements IDataStore<any> {
     protected cryptography?: Cryptography;
     protected algorithm: string;
     protected encrypt: boolean;
+    protected overwrite: boolean;
     constructor(params: IDataStoreParameters<any>);
+    private readFromFile;
     encryptData(data: DataRaw): Buffer;
     decryptData(data: DataRaw): Buffer;
     write(payload: Payload<any>): void;

@@ -34,9 +34,15 @@ export interface IDataStoreParameters<schemaType> {
    * The string key to encrypt/decrypt
    * If omited, a random key will be generate
    *
-   * @default true
    */
   secret?: string;
+  /**
+   * Can overwrite data on file ?
+   * If omited, false is default
+   *
+   * @default true
+   */
+  overwrite?: boolean;
 }
 
 /**
