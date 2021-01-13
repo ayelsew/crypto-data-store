@@ -6,6 +6,7 @@ export declare class Cryptography implements ICryptography {
     protected decipher: Decipher;
     protected key: Buffer;
     protected iv: Buffer;
+    protected algorithm: string;
     constructor(algorithm: string, secret?: string);
     getSecret(): string;
     encrypt(data: DataRaw): Buffer;

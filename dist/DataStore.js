@@ -28,10 +28,17 @@ class DataStore {
             dataRaw = this.readFile(this.fileName);
         }
         catch (error) {
-            throw new Exception_1.default(error);
+            throw new Exception_1.default(error.message);
         }
         const cipher = (this.encrypt === true) ? this.decryptData(dataRaw) : dataRaw;
-        return JSON.parse(cipher.toString());
+        let data;
+        try {
+            data = JSON.parse(cipher.toString());
+        }
+        catch (error) {
+            throw new Exception_1.default(`Is the file encrypted?\n ${error.message}`);
+        }
+        return data;
     }
     encryptData(data) {
         if (this.cryptography instanceof Cryptography_1.default) {
@@ -48,7 +55,7 @@ class DataStore {
     write(payload) {
         let data;
         if (this.overwrite === false) {
-            const merge = Object.assign(Object.assign({}, payload), this.readFromFile());
+            const merge = fs_1.default.existsSync(this.fileName) ? Object.assign(Object.assign({}, payload), this.readFromFile()) : payload;
             data = JSON.stringify(merge);
         }
         else {

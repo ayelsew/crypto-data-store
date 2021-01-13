@@ -4,6 +4,7 @@ exports.Cryptography = void 0;
 const crypto_1 = require("crypto");
 class Cryptography {
     constructor(algorithm, secret) {
+        this.algorithm = algorithm;
         if (typeof secret === 'string') {
             const keyArray = secret.split('.');
             this.key = Buffer.from(keyArray[0], 'hex');
@@ -23,11 +24,22 @@ class Cryptography {
     }
     encrypt(data) {
         const encrypted = this.cipher.update(data);
-        return Buffer.concat([encrypted, this.cipher.final()]);
+        const crypt = Buffer.concat([encrypted, this.cipher.final()]);
+        this.cipher = crypto_1.createCipheriv(this.algorithm, this.key, this.iv);
+        return crypt;
     }
     decrypt(data) {
-        const decrypted = this.decipher.update(data);
-        return Buffer.concat([decrypted, this.decipher.final()]);
+        let bufferArray;
+        try {
+            const decrypted = this.decipher.update(data);
+            bufferArray = [decrypted, this.decipher.final()];
+        }
+        catch (error) {
+            throw new Error(`It Cannot be decrypted! Is correct the secret key for it ? Is the file actually encrypted ?\n${error.message}`);
+        }
+        const decrypt = Buffer.concat(bufferArray);
+        this.decipher = crypto_1.createDecipheriv(this.algorithm, this.key, this.iv);
+        return decrypt;
     }
 }
 exports.Cryptography = Cryptography;
