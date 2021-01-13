@@ -54,11 +54,19 @@ export class DataStore implements IDataStore<any> {
     try {
       dataRaw = this.readFile(this.fileName);
     } catch (error) {
-      throw new DataStoreException(error);
+      throw new DataStoreException(error.message);
     }
 
     const cipher: Buffer = (this.encrypt === true) ? this.decryptData(dataRaw) : dataRaw;
-    return JSON.parse(cipher.toString()) as DataType;
+    let data: any;
+
+    try {
+      data = JSON.parse(cipher.toString()) as DataType;
+    } catch (error) {
+      throw new DataStoreException(`Is the file encrypted?\n ${error.message}`);
+    }
+
+    return data;
   }
 
   /**
@@ -104,7 +112,7 @@ export class DataStore implements IDataStore<any> {
     let data: string;
 
     if (this.overwrite === false) {
-      const merge = { ...payload, ...this.readFromFile() };
+      const merge = fs.existsSync(this.fileName) ? { ...payload, ...this.readFromFile() } : payload;
       data = JSON.stringify(merge);
     } else {
       data = JSON.stringify(payload);
