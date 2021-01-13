@@ -54,7 +54,7 @@ export class Cryptography implements ICryptography {
    */
   public encrypt(data: DataRaw): Buffer {
     const encrypted: Buffer = this.cipher.update(data);
-    const crypt = Buffer.concat([encrypted, this.cipher.final()]);
+    const crypt: Buffer = Buffer.concat([encrypted, this.cipher.final()]);
     this.cipher = createCipheriv(this.algorithm, this.key, this.iv);
     return crypt;
   }
@@ -63,11 +63,21 @@ export class Cryptography implements ICryptography {
    * Method to decrypt data
    * @param data The data to decrypt
    * @returns Buffer
+   * @throws Error
    * @method
    */
   public decrypt(data: DataRaw): Buffer {
-    const decrypted = this.decipher.update(data as NodeJS.ArrayBufferView);
-    const decrypt = Buffer.concat([decrypted, this.decipher.final()]);
+    let bufferArray: Array<Buffer>;
+
+    try {
+      const decrypted = this.decipher.update(data as NodeJS.ArrayBufferView);
+      bufferArray = [decrypted, this.decipher.final()];
+    } catch (error) {
+      throw new Error(`It Cannot be decrypted! Is correct the secret key for it?\n${error.message}`);
+    }
+
+    const decrypt = Buffer.concat(bufferArray);
+
     this.decipher = createDecipheriv(this.algorithm, this.key, this.iv);
     return decrypt;
   }
