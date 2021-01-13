@@ -17,7 +17,11 @@ export class Cryptography implements ICryptography {
 
   protected iv: Buffer;
 
+  protected algorithm: string;
+
   constructor(algorithm: string, secret?: string) {
+    this.algorithm = algorithm;
+
     if (typeof secret === 'string') {
       const keyArray = secret.split('.');
       this.key = Buffer.from(keyArray[0], 'hex');
@@ -50,18 +54,32 @@ export class Cryptography implements ICryptography {
    */
   public encrypt(data: DataRaw): Buffer {
     const encrypted: Buffer = this.cipher.update(data);
-    return Buffer.concat([encrypted, this.cipher.final()]);
+    const crypt: Buffer = Buffer.concat([encrypted, this.cipher.final()]);
+    this.cipher = createCipheriv(this.algorithm, this.key, this.iv);
+    return crypt;
   }
 
   /**
    * Method to decrypt data
    * @param data The data to decrypt
    * @returns Buffer
+   * @throws Error
    * @method
    */
   public decrypt(data: DataRaw): Buffer {
-    const decrypted = this.decipher.update(data as NodeJS.ArrayBufferView);
-    return Buffer.concat([decrypted, this.decipher.final()]);
+    let bufferArray: Array<Buffer>;
+
+    try {
+      const decrypted = this.decipher.update(data as NodeJS.ArrayBufferView);
+      bufferArray = [decrypted, this.decipher.final()];
+    } catch (error) {
+      throw new Error(`It Cannot be decrypted! Is correct the secret key for it ? Is the file actually encrypted ?\n${error.message}`);
+    }
+
+    const decrypt = Buffer.concat(bufferArray);
+
+    this.decipher = createDecipheriv(this.algorithm, this.key, this.iv);
+    return decrypt;
   }
 }
 

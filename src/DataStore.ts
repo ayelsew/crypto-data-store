@@ -31,6 +31,8 @@ export class DataStore implements IDataStore<any> {
 
   protected encrypt: boolean;
 
+  protected overwrite: boolean;
+
   constructor(params: IDataStoreParameters<any>) {
     this.schema = params.schema;
     this.fileName = params.fileName;
@@ -38,9 +40,33 @@ export class DataStore implements IDataStore<any> {
     this.readFile = fs.readFileSync;
     this.algorithm = params.algorithm || 'aes-256-cbc';
     this.encrypt = params.encrypt ?? true;
+    this.overwrite = params.overwrite || false;
     if (this.encrypt === true) {
       this.cryptography = new Cryptography(this.algorithm, params.secret);
     }
+  }
+
+  private readFromFile(): any {
+    const { schema } = this;
+    type DataType = typeof schema;
+    let dataRaw: Buffer;
+
+    try {
+      dataRaw = this.readFile(this.fileName);
+    } catch (error) {
+      throw new DataStoreException(error.message);
+    }
+
+    const cipher: Buffer = (this.encrypt === true) ? this.decryptData(dataRaw) : dataRaw;
+    let data: any;
+
+    try {
+      data = JSON.parse(cipher.toString()) as DataType;
+    } catch (error) {
+      throw new DataStoreException(`Is the file encrypted?\n ${error.message}`);
+    }
+
+    return data;
   }
 
   /**
@@ -83,7 +109,15 @@ export class DataStore implements IDataStore<any> {
    * @method
    */
   public write(payload: Payload<any>): void {
-    const data = JSON.stringify(payload);
+    let data: string;
+
+    if (this.overwrite === false) {
+      const merge = fs.existsSync(this.fileName) ? { ...payload, ...this.readFromFile() } : payload;
+      data = JSON.stringify(merge);
+    } else {
+      data = JSON.stringify(payload);
+    }
+
     const cipher: Buffer | string = (this.encrypt === true) ? this.encryptData(data) : data;
 
     try {
@@ -103,16 +137,8 @@ export class DataStore implements IDataStore<any> {
   public read(key: string): any {
     const { schema } = this;
     type DataType = typeof schema;
-    let dataRaw: Buffer;
 
-    try {
-      dataRaw = this.readFile(this.fileName);
-    } catch (error) {
-      throw new DataStoreException(error);
-    }
-
-    const cipher: Buffer = (this.encrypt === true) ? this.decryptData(dataRaw) : dataRaw;
-    const data: DataType = JSON.parse(cipher.toString()) as DataType;
+    const data: DataType = this.readFromFile();
 
     return data[key as keyof DataType];
   }
