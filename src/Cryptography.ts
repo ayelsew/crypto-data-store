@@ -73,7 +73,7 @@ export class Cryptography implements ICryptography {
       const decrypted = this.decipher.update(data as NodeJS.ArrayBufferView);
       bufferArray = [decrypted, this.decipher.final()];
     } catch (error) {
-      throw new Error(`It Cannot be decrypted! Is correct the secret key for it?\n${error.message}`);
+      throw new Error(`It Cannot be decrypted! Is correct the secret key for it ? Is the file actually encrypted ?\n${error.message}`);
     }
 
     const decrypt = Buffer.concat(bufferArray);
