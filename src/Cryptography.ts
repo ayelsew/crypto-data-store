@@ -17,7 +17,11 @@ export class Cryptography implements ICryptography {
 
   protected iv: Buffer;
 
+  protected algorithm: string;
+
   constructor(algorithm: string, secret?: string) {
+    this.algorithm = algorithm;
+
     if (typeof secret === 'string') {
       const keyArray = secret.split('.');
       this.key = Buffer.from(keyArray[0], 'hex');
@@ -50,7 +54,9 @@ export class Cryptography implements ICryptography {
    */
   public encrypt(data: DataRaw): Buffer {
     const encrypted: Buffer = this.cipher.update(data);
-    return Buffer.concat([encrypted, this.cipher.final()]);
+    const crypt = Buffer.concat([encrypted, this.cipher.final()]);
+    this.cipher = createCipheriv(this.algorithm, this.key, this.iv);
+    return crypt;
   }
 
   /**
@@ -61,7 +67,9 @@ export class Cryptography implements ICryptography {
    */
   public decrypt(data: DataRaw): Buffer {
     const decrypted = this.decipher.update(data as NodeJS.ArrayBufferView);
-    return Buffer.concat([decrypted, this.decipher.final()]);
+    const decrypt = Buffer.concat([decrypted, this.decipher.final()]);
+    this.decipher = createDecipheriv(this.algorithm, this.key, this.iv);
+    return decrypt;
   }
 }
 
