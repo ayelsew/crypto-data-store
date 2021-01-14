@@ -1,19 +1,21 @@
 import DataStore from '@root';
-import type { IDataStore, Schema } from '@root/interfaces';
+import type { Schema } from '@root/interfaces';
 
 interface SchemaTable {
   url?: string;
   token?: string;
   address?: string;
+  ARR: string[]
 }
 
 const schema: Schema<SchemaTable> = {
   url: '',
   token: '',
   address: '',
+  ARR: ['ANDRE'],
 };
 
-const dataStore: IDataStore<SchemaTable> = new DataStore({
+const dataStore = new DataStore<SchemaTable>({
   schema,
   fileName: 'db.tmp',
   encrypt: true,
@@ -28,7 +30,7 @@ dataStore.write({
 
 const fileName = dataStore.getFileName();
 
-const token = dataStore.read<string>('token');
+const token = dataStore.read('address');
 
 /* const secret = dataStore.getSecret(); */
 
