@@ -9,11 +9,11 @@ export type WriteFile = typeof fs.writeFileSync;
 
 export type ReadFile = typeof fs.readFileSync;
 
-export interface IDataStoreParameters<schemaType> {
+export interface IDataStoreParameters<SchemaType> {
   /**
    * Object base to use as schema
    */
-  schema: Schema<schemaType>;
+  schema: Schema<SchemaType>;
   /**
    * The name od file to save data
    */
@@ -48,11 +48,11 @@ export interface IDataStoreParameters<schemaType> {
 /**
  * Interface from class DataStore
  */
-export interface IDataStore<PayloadWrite> {
+export interface IDataStore<T> {
   encryptData(data: DataRaw): Buffer;
   decryptData(data: DataRaw): Buffer;
-  write(payload: Payload<PayloadWrite>): void;
-  read<T>(key: string): T;
+  write(payload: Payload<T>): void;
+  read<P extends keyof Schema<T>>(key: P): Schema<T>[P];
   getFileName(): string;
   getSecret(): string;
 }
