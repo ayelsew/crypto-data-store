@@ -1,6 +1,6 @@
 import fs from 'fs';
-import DataStoreException from '@root/Exception';
-import Cryptography from '@root/Cryptography';
+import { DataStoreException } from '@root/Exception';
+import { Cryptography } from '@root/Cryptography';
 import type {
   IDataStore,
   IDataStoreParameters,
@@ -16,8 +16,8 @@ import type {
  * @description  Class DataStore to save Object JS file as key:value
  * @version 1.0
  */
-export class DataStore implements IDataStore<any> {
-  protected schema: Schema<any>;
+export class DataStore<T> implements IDataStore<T> {
+  protected schema: Schema<T>;
 
   protected fileName: string;
 
@@ -33,7 +33,7 @@ export class DataStore implements IDataStore<any> {
 
   protected overwrite: boolean;
 
-  constructor(params: IDataStoreParameters<any>) {
+  constructor(params: IDataStoreParameters<T>) {
     this.schema = params.schema;
     this.fileName = params.fileName;
     this.writeFile = fs.writeFileSync;
@@ -46,7 +46,7 @@ export class DataStore implements IDataStore<any> {
     }
   }
 
-  private readFromFile(): any {
+  private readFromFile(): Schema<T> {
     const { schema } = this;
     type DataType = typeof schema;
     let dataRaw: Buffer;
@@ -58,7 +58,7 @@ export class DataStore implements IDataStore<any> {
     }
 
     const cipher: Buffer = (this.encrypt === true) ? this.decryptData(dataRaw) : dataRaw;
-    let data: any;
+    let data: Schema<T>;
 
     try {
       data = JSON.parse(cipher.toString()) as DataType;
@@ -134,13 +134,10 @@ export class DataStore implements IDataStore<any> {
    * @throws DataStoreException
    * @method
    */
-  public read(key: string): any {
-    const { schema } = this;
-    type DataType = typeof schema;
+  public read<P extends keyof Schema<T>>(key: P): Schema<T>[P] {
+    const data: Schema<T> = this.readFromFile();
 
-    const data: DataType = this.readFromFile();
-
-    return data[key as keyof DataType];
+    return data[key];
   }
 
   /**

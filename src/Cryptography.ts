@@ -23,9 +23,9 @@ export class Cryptography implements ICryptography {
     this.algorithm = algorithm;
 
     if (typeof secret === 'string') {
-      const keyArray = secret.split('.');
-      this.key = Buffer.from(keyArray[0], 'hex');
-      this.iv = Buffer.from(keyArray[1], 'hex');
+      const keyArray = secret.split(':');
+      this.key = Buffer.from(keyArray[0], 'base64');
+      this.iv = Buffer.from(keyArray[1], 'base64');
     } else {
       this.iv = randomBytes(16);
       this.key = randomBytes(32);
@@ -41,9 +41,9 @@ export class Cryptography implements ICryptography {
    * @method
    */
   public getSecret(): string {
-    const key = this.key.toString('hex');
-    const iv = this.iv.toString('hex');
-    return `${key}.${iv}`;
+    const key = this.key.toString('base64');
+    const iv = this.iv.toString('base64');
+    return `${key}:${iv}`;
   }
 
   /**
