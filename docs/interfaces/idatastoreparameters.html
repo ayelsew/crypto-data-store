@@ -58,7 +58,7 @@
 					<a href="idatastoreparameters.html">IDataStoreParameters</a>
 				</li>
 			</ul>
-			<h1>Interface IDataStoreParameters&lt;schemaType&gt;</h1>
+			<h1>Interface IDataStoreParameters&lt;SchemaType&gt;</h1>
 		</div>
 	</div>
 </header>
@@ -69,7 +69,7 @@
 				<h3>Type parameters</h3>
 				<ul class="tsd-type-parameters">
 					<li>
-						<h4>schemaType</h4>
+						<h4>SchemaType</h4>
 					</li>
 				</ul>
 			</section>
@@ -91,7 +91,9 @@
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="idatastoreparameters.html#algorithm" class="tsd-kind-icon">algorithm</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="idatastoreparameters.html#encrypt" class="tsd-kind-icon">encrypt</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="idatastoreparameters.html#filename" class="tsd-kind-icon">file<wbr>Name</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="idatastoreparameters.html#overwrite" class="tsd-kind-icon">overwrite</a></li>
 								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="idatastoreparameters.html#schema" class="tsd-kind-icon">schema</a></li>
+								<li class="tsd-kind-property tsd-parent-kind-interface"><a href="idatastoreparameters.html#secret" class="tsd-kind-icon">secret</a></li>
 							</ul>
 						</section>
 					</div>
@@ -105,14 +107,14 @@
 					<div class="tsd-signature tsd-kind-icon">algorithm<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/leydev/crypto-data-store/blob/54def07/src/interfaces/DataStore.ts#L25">src/interfaces/DataStore.ts:25</a></li>
+							<li>Defined in <a href="https://github.com/leydev/crypto-data-store/blob/e3211d0/src/interfaces/DataStore.ts#L26">src/interfaces/DataStore.ts:26</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The algorithm used on encryption</p>
+						</div>
 						<dl class="tsd-comment-tags">
-							<dt>description</dt>
-							<dd><p>The algorithm used on encryption</p>
-							</dd>
 							<dt>default</dt>
 							<dd><p>&#39;aes-256-cbc&#39;</p>
 							</dd>
@@ -125,14 +127,14 @@
 					<div class="tsd-signature tsd-kind-icon">encrypt<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">boolean</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/leydev/crypto-data-store/blob/54def07/src/interfaces/DataStore.ts#L30">src/interfaces/DataStore.ts:30</a></li>
+							<li>Defined in <a href="https://github.com/leydev/crypto-data-store/blob/e3211d0/src/interfaces/DataStore.ts#L32">src/interfaces/DataStore.ts:32</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Active mechanism of encryption</p>
+						</div>
 						<dl class="tsd-comment-tags">
-							<dt>description</dt>
-							<dd><p>Active mechanism of encryption</p>
-							</dd>
 							<dt>default</dt>
 							<dd><p>true</p>
 							</dd>
@@ -145,13 +147,32 @@
 					<div class="tsd-signature tsd-kind-icon">file<wbr>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/leydev/crypto-data-store/blob/54def07/src/interfaces/DataStore.ts#L20">src/interfaces/DataStore.ts:20</a></li>
+							<li>Defined in <a href="https://github.com/leydev/crypto-data-store/blob/e3211d0/src/interfaces/DataStore.ts#L20">src/interfaces/DataStore.ts:20</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The name od file to save data</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="overwrite" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> overwrite</h3>
+					<div class="tsd-signature tsd-kind-icon">overwrite<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">boolean</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/leydev/crypto-data-store/blob/e3211d0/src/interfaces/DataStore.ts#L45">src/interfaces/DataStore.ts:45</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Can overwrite data on file ?
+							If omited, false is default</p>
+						</div>
 						<dl class="tsd-comment-tags">
-							<dt>description</dt>
-							<dd><p>The name od file to save data</p>
+							<dt>default</dt>
+							<dd><p>true</p>
 							</dd>
 						</dl>
 					</div>
@@ -159,18 +180,32 @@
 				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
 					<a name="schema" class="tsd-anchor"></a>
 					<h3>schema</h3>
-					<div class="tsd-signature tsd-kind-icon">schema<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">schemaType</span></div>
+					<div class="tsd-signature tsd-kind-icon">schema<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">SchemaType</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/leydev/crypto-data-store/blob/54def07/src/interfaces/DataStore.ts#L16">src/interfaces/DataStore.ts:16</a></li>
+							<li>Defined in <a href="https://github.com/leydev/crypto-data-store/blob/e3211d0/src/interfaces/DataStore.ts#L16">src/interfaces/DataStore.ts:16</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
-						<dl class="tsd-comment-tags">
-							<dt>description</dt>
-							<dd><p>Object base to use as schema</p>
-							</dd>
-						</dl>
+						<div class="lead">
+							<p>Object base to use as schema</p>
+						</div>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-interface">
+					<a name="secret" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagOptional">Optional</span> secret</h3>
+					<div class="tsd-signature tsd-kind-icon">secret<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/leydev/crypto-data-store/blob/e3211d0/src/interfaces/DataStore.ts#L38">src/interfaces/DataStore.ts:38</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>The string key to encrypt/decrypt
+							If omited, a random key will be generate</p>
+						</div>
 					</div>
 				</section>
 			</section>
@@ -188,7 +223,7 @@
 					<li class=" tsd-kind-class">
 						<a href="../classes/datastoreexception.html" class="tsd-kind-icon">Data<wbr>Store<wbr>Exception</a>
 					</li>
-					<li class=" tsd-kind-class">
+					<li class=" tsd-kind-class tsd-has-type-parameter">
 						<a href="../classes/default.html" class="tsd-kind-icon">default</a>
 					</li>
 					<li class=" tsd-kind-interface">
@@ -212,7 +247,13 @@
 								<a href="idatastoreparameters.html#filename" class="tsd-kind-icon">file<wbr>Name</a>
 							</li>
 							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="idatastoreparameters.html#overwrite" class="tsd-kind-icon">overwrite</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
 								<a href="idatastoreparameters.html#schema" class="tsd-kind-icon">schema</a>
+							</li>
+							<li class=" tsd-kind-property tsd-parent-kind-interface">
+								<a href="idatastoreparameters.html#secret" class="tsd-kind-icon">secret</a>
 							</li>
 						</ul>
 					</li>
@@ -252,6 +293,9 @@
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
 			</ul>
 		</div>
 	</div>
