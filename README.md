@@ -118,7 +118,7 @@ const dataStore = new DataStore<SchemaTable>({
   schema,
   fileName: 'db.tmp',
   // The key used to encrypt file must be the same to decrypt
-  secret: '83e27d81030af3027405403c1c557aad64854bd52fc65c7dc3368d5649d47564.b1c929d8560bea536b67de44f18fa34b',
+  secret: 'unZe59gwkY02ahHwUyiFusBnFnwhSIExdLgZhA47A14=:y7rMUbRs1NbX88pqlr6UtA==',
 });
 
 const data = dataStore.read('url');
@@ -167,8 +167,6 @@ const schema: Schema<SchemaTable> = {
 const dataStore = new DataStore<SchemaTable>({
   schema,
   fileName: 'db.tmp',
-  // The key used to encrypt file must be the same to decrypt
-  secret: '83e27d81030af3027405403c1c557aad64854bd52fc65c7dc3368d5649d47564.b1c929d8560bea536b67de44f18fa34b',
 });
 
 try {
@@ -180,10 +178,11 @@ try {
 
 ## Change log NPM
 
- - 1.0.6 Fix types and better eslint
-    Now methods like `.read(key: string)` can show properties of schema without pass generic type.
-    For developers, eslint config was updated for better lint code typescript
+ - 1.0.7 Fix types, better eslint, secret key more compressed
+    - Now methods like `.read(key: string)` can show properties of schema without pass generic type.
+    - For developers, eslint config was updated for better lint code typescript;
+    - The secret key by default, will be outputted as base64 because it's length less than base15 (hex)
  - 1.0.6 Overwrite optional  
-    Now, if you have a file with data, on write it, the data object will be merged. Except if you went to overwrite data, so you should set `overwrite: true` when instancing class DataStore. 
+    - Now, if you have a file with data, on write it, the data object will be merged. Except if you went to overwrite data, so you should set `overwrite: true` when instancing class DataStore. 
  - 1.0.5 Support to add secret on instance DataStore class  
-    Now it's possible to inject a secret key to open files already encrypted before 
+    - Now it's possible to inject a secret key to open files already encrypted before 
