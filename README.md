@@ -11,6 +11,17 @@ Crypto Data Store is a module to write Objects Javascript in a file with encrypt
 ## NOTE
 **At the moment this is a experimental module**
 
+## Table of contents
+
+ - [Use in typescript](#Use-in-typescript)
+ - [Use in Javascript](#Use-in-Javascript)
+ - [Recovery data from encrypted file](#Recovery-data-from-encrypted-file)
+ - [Disable encryption](#Disable-encryption)
+ - [Change algorithm of encryption](#Change-algorithm-of-encryption)
+ - [Handle errors](#Handle-errors)
+ - [Change log NPM](#Change-log-NPM)
+
+
 ## Reports and Pull Requests
 [Open PR here](https://github.com/leydev/crypto-data-store/pulls)  
 [Open issues here](https://github.com/leydev/crypto-data-store/issues)
@@ -30,7 +41,7 @@ const schema: Schema<SchemaTable> = {
   token: '',
 };
 
-const dataStore: IDataStore<SchemaTable> = new DataStore({
+const dataStore = new DataStore<SchemaTable>({
   schema,
   fileName: 'db.tmp',
 });
@@ -42,7 +53,7 @@ dataStore.write({
 
 const fileName = dataStore.getFileName();
 
-const token = dataStore.read<string>('token');
+const token = dataStore.read('token');
 
 const secret = dataStore.getSecret();
 
@@ -103,14 +114,14 @@ const schema: Schema<SchemaTable> = {
   token: '',
 };
 
-const dataStore: IDataStore<SchemaTable> = new DataStore({
+const dataStore = new DataStore<SchemaTable>({
   schema,
   fileName: 'db.tmp',
   // The key used to encrypt file must be the same to decrypt
   secret: '83e27d81030af3027405403c1c557aad64854bd52fc65c7dc3368d5649d47564.b1c929d8560bea536b67de44f18fa34b',
 });
 
-const data = dataStore.read<string>('url');
+const data = dataStore.read('url');
 
 // eslint-disable-next-line no-console
 console.log('URL:', data); // output: 'https://leydev.com.br'
@@ -119,7 +130,7 @@ console.log('URL:', data); // output: 'https://leydev.com.br'
 
 ## Disable encryption
 ```ts
-const dataStore: IDataStore<SchemaTable> = new DataStore({
+const dataStore = new DataStore<SchemaTable>({
   schema,
   fileName: 'db.tmp',
   // To disable encryption on write file
@@ -129,7 +140,7 @@ const dataStore: IDataStore<SchemaTable> = new DataStore({
 
 ## Change algorithm of encryption
 ```ts
-const dataStore: IDataStore<SchemaTable> = new DataStore({
+const dataStore = new DataStore<SchemaTable>({
   schema,
   fileName: 'db.tmp',
   // Change algorithm
@@ -153,7 +164,7 @@ const schema: Schema<SchemaTable> = {
   token: '',
 };
 
-const dataStore: IDataStore<SchemaTable> = new DataStore({
+const dataStore = new DataStore<SchemaTable>({
   schema,
   fileName: 'db.tmp',
   // The key used to encrypt file must be the same to decrypt
@@ -161,7 +172,7 @@ const dataStore: IDataStore<SchemaTable> = new DataStore({
 });
 
 try {
-  const data = dataStore.read<string>('token');
+  const data = dataStore.read('token');
 } catch(error) {
   console.error(error) // Instance of DataStoreException
 }
@@ -169,6 +180,9 @@ try {
 
 ## Change log NPM
 
+ - 1.0.6 Fix types and better eslint
+    Now methods like `.read(key: string)` can show properties of schema without pass generic type.
+    For developers, eslint config was updated for better lint code typescript
  - 1.0.6 Overwrite optional  
     Now, if you have a file with data, on write it, the data object will be merged. Except if you went to overwrite data, so you should set `overwrite: true` when instancing class DataStore. 
  - 1.0.5 Support to add secret on instance DataStore class  
