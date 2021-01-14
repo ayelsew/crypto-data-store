@@ -18,8 +18,7 @@ const schema: Schema<SchemaTable> = {
 const dataStore = new DataStore<SchemaTable>({
   schema,
   fileName: 'db.tmp',
-  encrypt: true,
-  secret: '83e27d81030af3027405403c1c557aad64854bd52fc65c7dc3368d5649d47564.b1c929d8560bea536b67de44f18fa34b',
+  secret: 'unZe59gwkY02ahHwUyiFusBnFnwhSIExdLgZhA47A14=:y7rMUbRs1NbX88pqlr6UtA==',
 });
 
 dataStore.write({
@@ -32,11 +31,11 @@ const fileName = dataStore.getFileName();
 
 const token = dataStore.read('address');
 
-/* const secret = dataStore.getSecret(); */
+const secret = dataStore.getSecret();
 
 // eslint-disable-next-line no-console
 console.log('Nome do arquivo', fileName);
 // eslint-disable-next-line no-console
 console.log('token de acesso', token);
 // eslint-disable-next-line no-console
-/* console.log('Secret key used', secret); */
+console.log('Secret key used', secret);
