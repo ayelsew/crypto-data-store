@@ -66,10 +66,30 @@
 				<a href="#description" id="description" style="color: inherit; text-decoration: none;">
 					<h2>Description</h2>
 				</a>
-				<p>Crypto Data Store is an module to write Objects Javascript in a file with encryption or not.</p>
+				<p>Crypto Data Store is a module to write Objects Javascript in a file with encryption or not.</p>
 				<ul>
 					<li>Full typescript support</li>
 				</ul>
+				<a href="#note" id="note" style="color: inherit; text-decoration: none;">
+					<h2>NOTE</h2>
+				</a>
+				<p><strong>At the moment this is a experimental module</strong></p>
+				<a href="#table-of-contents" id="table-of-contents" style="color: inherit; text-decoration: none;">
+					<h2>Table of contents</h2>
+				</a>
+				<ul>
+					<li><a href="#Use-in-typescript">Use in typescript</a></li>
+					<li><a href="#Use-in-Javascript">Use in Javascript</a></li>
+					<li><a href="#Recovery-data-from-encrypted-file">Recovery data from encrypted file</a></li>
+					<li><a href="#Disable-encryption">Disable encryption</a></li>
+					<li><a href="#Change-algorithm-of-encryption">Change algorithm of encryption</a></li>
+					<li><a href="#Handle-errors">Handle errors</a></li>
+					<li><a href="#Change-log-NPM">Change log NPM</a></li>
+				</ul>
+				<a href="#reports-and-pull-requests" id="reports-and-pull-requests" style="color: inherit; text-decoration: none;">
+					<h2>Reports and Pull Requests</h2>
+				</a>
+				<p><a href="https://github.com/leydev/crypto-data-store/pulls">Open PR here</a><br><a href="https://github.com/leydev/crypto-data-store/issues">Open issues here</a></p>
 				<a href="#use-in-typescript" id="use-in-typescript" style="color: inherit; text-decoration: none;">
 					<h2>Use in typescript</h2>
 				</a>
@@ -86,7 +106,7 @@
 <span style="color: #000000">  </span><span style="color: #001080">token:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;&#039;</span><span style="color: #000000">,</span>
 <span style="color: #000000">};</span>
 
-<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">dataStore</span><span style="color: #000000">: </span><span style="color: #267F99">IDataStore</span><span style="color: #000000">&lt;</span><span style="color: #267F99">SchemaTable</span><span style="color: #000000">&gt; = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">DataStore</span><span style="color: #000000">({</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">dataStore</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">DataStore</span><span style="color: #000000">&lt;</span><span style="color: #267F99">SchemaTable</span><span style="color: #000000">&gt;({</span>
 <span style="color: #000000">  </span><span style="color: #001080">schema</span><span style="color: #000000">,</span>
 <span style="color: #000000">  </span><span style="color: #001080">fileName:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;db.tmp&#039;</span><span style="color: #000000">,</span>
 <span style="color: #000000">});</span>
@@ -98,7 +118,7 @@
 
 <span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">fileName</span><span style="color: #000000"> = </span><span style="color: #001080">dataStore</span><span style="color: #000000">.</span><span style="color: #795E26">getFileName</span><span style="color: #000000">();</span>
 
-<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">token</span><span style="color: #000000"> = </span><span style="color: #001080">dataStore</span><span style="color: #000000">.</span><span style="color: #795E26">read</span><span style="color: #000000">&lt;</span><span style="color: #267F99">string</span><span style="color: #000000">&gt;(</span><span style="color: #A31515">&#039;token&#039;</span><span style="color: #000000">);</span>
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">token</span><span style="color: #000000"> = </span><span style="color: #001080">dataStore</span><span style="color: #000000">.</span><span style="color: #795E26">read</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;token&#039;</span><span style="color: #000000">);</span>
 
 <span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">secret</span><span style="color: #000000"> = </span><span style="color: #001080">dataStore</span><span style="color: #000000">.</span><span style="color: #795E26">getSecret</span><span style="color: #000000">();</span>
 
@@ -142,6 +162,101 @@
 <span style="color: #008000">// eslint-disable-next-line no-console</span>
 <span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;Secret key used&#039;</span><span style="color: #000000">, </span><span style="color: #001080">secret</span><span style="color: #000000">);</span>
 </code></pre>
+				<a href="#recovery-data-from-encrypted-file" id="recovery-data-from-encrypted-file" style="color: inherit; text-decoration: none;">
+					<h2>Recovery data from encrypted file</h2>
+				</a>
+				<pre><code class="language-ts"><span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #001080">DataStore</span><span style="color: #000000"> </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;crypto-data-store&#039;</span><span style="color: #000000">;</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #AF00DB">type</span><span style="color: #000000"> { </span><span style="color: #001080">IDataStore</span><span style="color: #000000">, </span><span style="color: #001080">Schema</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;crypto-data-store&#039;</span><span style="color: #000000">;</span>
+
+<span style="color: #0000FF">interface</span><span style="color: #000000"> </span><span style="color: #267F99">SchemaTable</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  </span><span style="color: #001080">url</span><span style="color: #000000">?: </span><span style="color: #267F99">string</span><span style="color: #000000">;</span>
+<span style="color: #000000">  </span><span style="color: #001080">token</span><span style="color: #000000">?: </span><span style="color: #267F99">string</span><span style="color: #000000">;</span>
+<span style="color: #000000">}</span>
+
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">schema</span><span style="color: #000000">: </span><span style="color: #267F99">Schema</span><span style="color: #000000">&lt;</span><span style="color: #267F99">SchemaTable</span><span style="color: #000000">&gt; = {</span>
+<span style="color: #000000">  </span><span style="color: #001080">url:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">token:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">};</span>
+
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">dataStore</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">DataStore</span><span style="color: #000000">&lt;</span><span style="color: #267F99">SchemaTable</span><span style="color: #000000">&gt;({</span>
+<span style="color: #000000">  </span><span style="color: #001080">schema</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">fileName:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;db.tmp&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #008000">// The key used to encrypt file must be the same to decrypt</span>
+<span style="color: #000000">  </span><span style="color: #001080">secret:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;unZe59gwkY02ahHwUyiFusBnFnwhSIExdLgZhA47A14=:y7rMUbRs1NbX88pqlr6UtA==&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">});</span>
+
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">data</span><span style="color: #000000"> = </span><span style="color: #001080">dataStore</span><span style="color: #000000">.</span><span style="color: #795E26">read</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;url&#039;</span><span style="color: #000000">);</span>
+
+<span style="color: #008000">// eslint-disable-next-line no-console</span>
+<span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">log</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;URL:&#039;</span><span style="color: #000000">, </span><span style="color: #001080">data</span><span style="color: #000000">); </span><span style="color: #008000">// output: &#039;https://leydev.com.br&#039;</span>
+
+</code></pre>
+				<a href="#disable-encryption" id="disable-encryption" style="color: inherit; text-decoration: none;">
+					<h2>Disable encryption</h2>
+				</a>
+				<pre><code class="language-ts"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">dataStore</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">DataStore</span><span style="color: #000000">&lt;</span><span style="color: #267F99">SchemaTable</span><span style="color: #000000">&gt;({</span>
+<span style="color: #000000">  </span><span style="color: #001080">schema</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">fileName:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;db.tmp&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #008000">// To disable encryption on write file</span>
+<span style="color: #000000">  </span><span style="color: #001080">encrypt:</span><span style="color: #000000"> </span><span style="color: #0000FF">false</span><span style="color: #000000">,</span>
+<span style="color: #000000">});</span>
+</code></pre>
+				<a href="#change-algorithm-of-encryption" id="change-algorithm-of-encryption" style="color: inherit; text-decoration: none;">
+					<h2>Change algorithm of encryption</h2>
+				</a>
+				<pre><code class="language-ts"><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">dataStore</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">DataStore</span><span style="color: #000000">&lt;</span><span style="color: #267F99">SchemaTable</span><span style="color: #000000">&gt;({</span>
+<span style="color: #000000">  </span><span style="color: #001080">schema</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">fileName:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;db.tmp&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #008000">// Change algorithm</span>
+<span style="color: #000000">  </span><span style="color: #001080">algorithm:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;aes-256-cbc&#039;</span><span style="color: #000000"> </span><span style="color: #008000">// &#039;aes-256-cbc&#039; is default</span>
+<span style="color: #000000">});</span>
+</code></pre>
+				<a href="#handle-errors" id="handle-errors" style="color: inherit; text-decoration: none;">
+					<h2>Handle errors</h2>
+				</a>
+				<pre><code class="language-ts"><span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #001080">DataStore</span><span style="color: #000000"> </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;crypto-data-store&#039;</span><span style="color: #000000">;</span>
+<span style="color: #AF00DB">import</span><span style="color: #000000"> </span><span style="color: #AF00DB">type</span><span style="color: #000000"> { </span><span style="color: #001080">IDataStore</span><span style="color: #000000">, </span><span style="color: #001080">Schema</span><span style="color: #000000"> } </span><span style="color: #AF00DB">from</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;crypto-data-store&#039;</span><span style="color: #000000">;</span>
+
+<span style="color: #0000FF">interface</span><span style="color: #000000"> </span><span style="color: #267F99">SchemaTable</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  </span><span style="color: #001080">url</span><span style="color: #000000">?: </span><span style="color: #267F99">string</span><span style="color: #000000">;</span>
+<span style="color: #000000">  </span><span style="color: #001080">token</span><span style="color: #000000">?: </span><span style="color: #267F99">string</span><span style="color: #000000">;</span>
+<span style="color: #000000">}</span>
+
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">schema</span><span style="color: #000000">: </span><span style="color: #267F99">Schema</span><span style="color: #000000">&lt;</span><span style="color: #267F99">SchemaTable</span><span style="color: #000000">&gt; = {</span>
+<span style="color: #000000">  </span><span style="color: #001080">url:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">token:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">};</span>
+
+<span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">dataStore</span><span style="color: #000000"> = </span><span style="color: #0000FF">new</span><span style="color: #000000"> </span><span style="color: #267F99">DataStore</span><span style="color: #000000">&lt;</span><span style="color: #267F99">SchemaTable</span><span style="color: #000000">&gt;({</span>
+<span style="color: #000000">  </span><span style="color: #001080">schema</span><span style="color: #000000">,</span>
+<span style="color: #000000">  </span><span style="color: #001080">fileName:</span><span style="color: #000000"> </span><span style="color: #A31515">&#039;db.tmp&#039;</span><span style="color: #000000">,</span>
+<span style="color: #000000">});</span>
+
+<span style="color: #AF00DB">try</span><span style="color: #000000"> {</span>
+<span style="color: #000000">  </span><span style="color: #0000FF">const</span><span style="color: #000000"> </span><span style="color: #0070C1">data</span><span style="color: #000000"> = </span><span style="color: #001080">dataStore</span><span style="color: #000000">.</span><span style="color: #795E26">read</span><span style="color: #000000">(</span><span style="color: #A31515">&#039;token&#039;</span><span style="color: #000000">);</span>
+<span style="color: #000000">} </span><span style="color: #AF00DB">catch</span><span style="color: #000000">(</span><span style="color: #001080">error</span><span style="color: #000000">) {</span>
+<span style="color: #000000">  </span><span style="color: #001080">console</span><span style="color: #000000">.</span><span style="color: #795E26">error</span><span style="color: #000000">(</span><span style="color: #001080">error</span><span style="color: #000000">) </span><span style="color: #008000">// Instance of DataStoreException</span>
+<span style="color: #000000">}</span>
+</code></pre>
+				<a href="#change-log-npm" id="change-log-npm" style="color: inherit; text-decoration: none;">
+					<h2>Change log NPM</h2>
+				</a>
+				<ul>
+					<li>1.0.7 Fix types, better eslint, secret key more compressed<ul>
+							<li>Now methods like <code>.read(key: string)</code> can show properties of schema without pass generic type.</li>
+							<li>For developers, eslint config was updated for better lint code typescript;</li>
+							<li>The secret key by default, will be outputted as base64 because it&#39;s length less than base15 (hex)</li>
+						</ul>
+					</li>
+					<li>1.0.6 Overwrite optional  <ul>
+							<li>Now, if you have a file with data, on write it, the data object will be merged. Except if you went to overwrite data, so you should set <code>overwrite: true</code> when instancing class DataStore. </li>
+						</ul>
+					</li>
+					<li>1.0.5 Support to add secret on instance DataStore class  <ul>
+							<li>Now it&#39;s possible to inject a secret key to open files already encrypted before </li>
+						</ul>
+					</li>
+				</ul>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
@@ -157,7 +272,7 @@
 					<li class=" tsd-kind-class">
 						<a href="classes/datastoreexception.html" class="tsd-kind-icon">Data<wbr>Store<wbr>Exception</a>
 					</li>
-					<li class=" tsd-kind-class">
+					<li class=" tsd-kind-class tsd-has-type-parameter">
 						<a href="classes/default.html" class="tsd-kind-icon">default</a>
 					</li>
 					<li class=" tsd-kind-interface">
@@ -203,6 +318,9 @@
 			</ul>
 			<ul class="tsd-legend">
 				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
 			</ul>
 		</div>
 	</div>
