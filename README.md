@@ -178,6 +178,7 @@ try {
 ```
 
 ## Change log NPM
+ - 1.0.10 Fixed bug when override is false.
  - 1.0.9 Now you can decide if class will create file if not exist
     - In oder version if file is not wrote before read, a error was throw up
     now just add `createFileIfNotExist: true` to prevent. 
