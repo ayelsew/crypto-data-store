@@ -137,7 +137,7 @@ export class DataStore<T> implements IDataStore<T> {
     let data: string;
 
     if (this.overwrite === false) {
-      const merge = fs.existsSync(this.fileName) ? { ...payload, ...this.readFromFile() } : payload;
+      const merge = fs.existsSync(this.fileName) ? { ...this.readFromFile(), ...payload } : payload;
       data = JSON.stringify(merge);
     } else {
       data = JSON.stringify(payload);
