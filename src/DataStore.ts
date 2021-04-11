@@ -33,6 +33,8 @@ export class DataStore<T> implements IDataStore<T> {
 
   protected overwrite: boolean;
 
+  protected createFileIfNotExist: boolean;
+
   constructor(params: IDataStoreParameters<T>) {
     this.schema = params.schema;
     this.fileName = params.fileName;
@@ -41,8 +43,31 @@ export class DataStore<T> implements IDataStore<T> {
     this.algorithm = params.algorithm || 'aes-256-cbc';
     this.encrypt = params.encrypt ?? true;
     this.overwrite = params.overwrite || false;
+    this.createFileIfNotExist = params.createFileIfNotExist || false;
     if (this.encrypt === true) {
       this.cryptography = new Cryptography(this.algorithm, params.secret);
+    }
+    if (this.createFileIfNotExist) {
+      this.createIfNotExist();
+    }
+  }
+
+  createIfNotExist() {
+    let success: boolean;
+
+    try {
+      this.readFromFile();
+      success = true;
+    } catch {
+      success = false;
+    }
+
+    if (!success) {
+      try {
+        this.write(this.schema);
+      } catch (error) {
+        throw new DataStoreException(`Cannot create when file not exist: ${error.message}`);
+      }
     }
   }
 
