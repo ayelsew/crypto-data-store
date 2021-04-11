@@ -44,6 +44,7 @@ const schema: Schema<SchemaTable> = {
 const dataStore = new DataStore<SchemaTable>({
   schema,
   fileName: 'db.tmp',
+  createFileIfNotExist: true,
 });
 
 dataStore.write({
@@ -177,7 +178,9 @@ try {
 ```
 
 ## Change log NPM
-
+ - 1.0.9 Now you can decide if class will create file if not exist
+    - In oder version if file is not wrote before read, a error was throw up
+    now just add `createFileIfNotExist: true` to prevent. 
  - 1.0.7 Fix types, better eslint, secret key more compressed
     - Now methods like `.read(key: string)` can show properties of schema without pass generic type.
     - For developers, eslint config was updated for better lint code typescript;
