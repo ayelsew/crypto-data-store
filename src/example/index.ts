@@ -22,11 +22,11 @@ const dataStore = new DataStore<SchemaTable>({
   createFileIfNotExist: true,
 });
 
-/* dataStore.write({
+dataStore.write({
   url: 'https://leydev.com.br',
   token: 'beare some-token-for-authentication-here',
-  address: 'Avenida Henriqueta Mendes Guerra',
-}); */
+  address: 'Rua porchat',
+});
 
 const fileName = dataStore.getFileName();
 
