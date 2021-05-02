@@ -18,24 +18,25 @@ const schema: Schema<SchemaTable> = {
 const dataStore = new DataStore<SchemaTable>({
   schema,
   fileName: 'db.tmp',
-  secret: 'unZe59gwkY02ahHwUyiFusBnFnwhSIExdLgZhA47A14=:y7rMUbRs1NbX88pqlr6UtA==',
+  encrypt: false,
+  createFileIfNotExist: true,
 });
 
 dataStore.write({
   url: 'https://leydev.com.br',
   token: 'beare some-token-for-authentication-here',
-  address: 'Avenida Henriqueta Mendes Guerra',
+  address: 'Rua porchat',
 });
 
 const fileName = dataStore.getFileName();
 
 const token = dataStore.read('address');
 
-const secret = dataStore.getSecret();
+/* const secret = dataStore.getSecret(); */
 
 // eslint-disable-next-line no-console
 console.log('Nome do arquivo', fileName);
 // eslint-disable-next-line no-console
 console.log('token de acesso', token);
 // eslint-disable-next-line no-console
-console.log('Secret key used', secret);
+/* console.log('Secret key used', secret); */

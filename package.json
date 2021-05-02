@@ -1,6 +1,6 @@
 {
   "name": "crypto-data-store",
-  "version": "1.0.7",
+  "version": "1.0.10",
   "description": "Crypto Data Store is an module to write Objects Javascript in a file with encryptation or not.",
   "main": "dist/index.js",
   "scripts": {

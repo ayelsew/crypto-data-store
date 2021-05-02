@@ -43,6 +43,13 @@ export interface IDataStoreParameters<SchemaType> {
    * @default true
    */
   overwrite?: boolean;
+  /**
+   * Create the file if not exist?
+   * If omited, false is default
+   *
+   * @default true
+   */
+  createFileIfNotExist?: boolean;
 }
 
 /**
